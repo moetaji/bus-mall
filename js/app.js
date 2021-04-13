@@ -158,8 +158,48 @@ function showing() {
         getRuslt.textContent = `${Busproudect.allProuduct[i].name}has ${Busproudect.allProuduct[i].votes}voted and seen ${Busproudect.allProuduct[i].shown}time`;
     }
     if (getRuslt) {
+        chart();
         button.removeEventListener('click', showing);
     }
 
 }
 
+function chart() {
+    let ctx = document.getElementById('myChart').getContext('2d');
+
+    let chart = new Chart(ctx, {
+
+        type: 'bar',
+
+        //  the data for showing
+        data: {
+            //  for the names
+            labels: nameArr,
+
+            datasets: [
+                {
+                    label: 'Product votes',
+                    data: voteArr,
+                    backgroundColor: [
+                        'rgb(251, 93, 76)',
+                    ],
+
+                    borderWidth: 1
+                },
+
+                {
+                    label: 'Product shown',
+                    data: shownArry,
+                    backgroundColor: [
+                        'rgb(47, 27, 228)',
+                    ],
+
+                    borderWidth: 1
+                }
+
+            ]
+        },
+        options: {}
+    });
+
+}
