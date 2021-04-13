@@ -29,14 +29,20 @@
 
 
 let imagProductElemint = document.getElementById('product');
+let rightElment = document.getElementById('rightImage');
+let leftImagElment = document.getElementById('leftImag');
+let centerImageElment = document.getElementById('centerImage');
 
-
-let numberAtetmpet = 10;
+let numberAtetmpet = 25;
 let counterAttempt = 0;
-let imageIndex;
+
 let imageIndexLeft;
 let imageIndexRight;
 let imageIndexCenter;
+
+let nameArr = [];
+let shownArry = [];
+let voteArr = [];
 
 function Busproudect(name, source) {
     this.name = name;
@@ -44,6 +50,7 @@ function Busproudect(name, source) {
     this.shown = 0;
     this.votes = 0;
     Busproudect.allProuduct.push(this);
+    nameArr.push(this.name);
 }
 Busproudect.allProuduct = [];
 
@@ -81,18 +88,78 @@ function render() {
     imageIndexRight = randomProduct();
     imageIndexCenter = randomProduct();
 
-    document.getElementById('leftImag').src = Busproudect.allProuduct[imageIndexLeft].source;
-    document.getElementById('centerImage').src = Busproudect.allProuduct[imageIndexCenter].source;
-    document.getElementById('rightImage').src = Busproudect.allProuduct[imageIndexRight].source;
+
+    while (imageIndexLeft === imageIndexRight || imageIndexRight === imageIndexCenter) {
+        imageIndexRight = randomProduct();
+        imageIndexCenter = randomProduct();
+
+    }
+    leftImagElment.src = Busproudect.allProuduct[imageIndexLeft].source;
+    Busproudect.allProuduct[imageIndexLeft].shown++;
+    centerImageElment.src = Busproudect.allProuduct[imageIndexCenter].source;
+    Busproudect.allProuduct[imageIndexCenter].shown++;
+
+    rightElment.src = Busproudect.allProuduct[imageIndexRight].source;
+    Busproudect.allProuduct[imageIndexRight].shown++;
 
 }
 render();
 
 //eventlistner
-imageIndexLeft.addEventListener('click',userClick);
-imageIndexCenter.addEventListener('click',userClick);
-imageIndexRight.addEventListener('click',userClick);
+imagProductElemint.addEventListener('click', userClick);
+let button = document.getElementById('button');
 
-function userClick(event){
-    
+function userClick(event) {
+
+    counterAttempt++;
+    console.log(counterAttempt);
+
+    if (counterAttempt <= numberAtetmpet) {
+        if (event.target.id === 'leftImag') {
+            Busproudect.allProuduct[imageIndexLeft].votes++;
+        }
+        else if (event.target.id === 'rightImage') {
+            Busproudect.allProuduct[imageIndexRight].votes++;
+
+        }
+        else if (event.target.id === 'centerImagee') {
+            Busproudect.allProuduct[imageIndexCenter].votes++;
+
+        }
+        else {
+            counterAttempt--;
+        }
+        render();
+
+    }
+    else {
+
+
+        button.addEventListener('click', showing);
+        button.hidden = false;
+
+        for (let i = 0; i < Busproudect.allProuduct.length; i++) {
+
+            voteArr.push(Busproudect.allProuduct[i].votes);
+            shownArry.push(Busproudect.allProuduct[i].shown);
+        }
+        imagProductElemint.removeEventListener('click', userClick);
+    }
+
 }
+function showing() {
+    let list = document.getElementById('result');
+    let getRuslt;
+
+    for (let i = 0; i < Busproudect.allProuduct.length; i++) {
+
+        getRuslt = document.createElement('li');
+        list.appendChild(getRuslt);
+        getRuslt.textContent = `${Busproudect.allProuduct[i].name}has ${Busproudect.allProuduct[i].votes}voted and seen ${Busproudect.allProuduct[i].shown}time`;
+    }
+    if (getRuslt) {
+        button.removeEventListener('click', showing);
+    }
+
+}
+
