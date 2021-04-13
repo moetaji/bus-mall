@@ -5,7 +5,10 @@ img{
     padding: 5px; ;
 }
 h1{
-    background-color: rgb(213, 200, 224);
+    background-color: rgb(47, 27, 228);
     text-align: center;
-    color: crimson;
+    color: #1be65f;
+}
+button{
+    background-color: crimson;
 }
