@@ -80,20 +80,24 @@ console.log(Busproudect.allProuduct);
 function randomProduct() {
     return Math.floor(Math.random() * Busproudect.allProuduct.length);
 }
-// randomProduct();
 
+
+let holderProduct = [];
 //render funcion
 function render() {
-    imageIndexLeft = randomProduct();
+
     imageIndexRight = randomProduct();
     imageIndexCenter = randomProduct();
+    imageIndexLeft = randomProduct();
 
-
-    while (imageIndexLeft === imageIndexRight || imageIndexRight === imageIndexCenter) {
+    while (imageIndexLeft === imageIndexRight || imageIndexLeft === imageIndexCenter || imageIndexCenter === imageIndexRight || holderProduct.includes(imageIndexLeft) || holderProduct.includes(imageIndexCenter) || holderProduct.includes(imageIndexRight)) {
         imageIndexRight = randomProduct();
         imageIndexCenter = randomProduct();
-
+        imageIndexLeft = randomProduct();
     }
+
+    holderProduct = [imageIndexLeft, imageIndexRight, imageIndexCenter];
+
     leftImagElment.src = Busproudect.allProuduct[imageIndexLeft].source;
     Busproudect.allProuduct[imageIndexLeft].shown++;
     centerImageElment.src = Busproudect.allProuduct[imageIndexCenter].source;
@@ -103,6 +107,7 @@ function render() {
     Busproudect.allProuduct[imageIndexRight].shown++;
 
 }
+
 render();
 
 //eventlistner
@@ -203,3 +208,23 @@ function chart() {
     });
 
 }
+
+function storedata() {
+    let arrayString = JSON.stringify(Busproudect.allProuduct);
+
+    // console.log(arrayString);
+    localStorage.setItem('shown', arrayString);
+
+}
+
+function getData() {
+    let data = localStorage.getItem('shown');
+    // console.log(data);
+    let shownData = JSON.parse(data);
+    console.log(shownData);
+}
+render();
+
+storedata();
+
+getData();
