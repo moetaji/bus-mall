@@ -82,6 +82,9 @@ function randomProduct() {
 }
 
 
+
+
+
 let holderProduct = [];
 //render funcion
 function render() {
@@ -90,13 +93,21 @@ function render() {
     imageIndexCenter = randomProduct();
     imageIndexLeft = randomProduct();
 
-    while (imageIndexLeft === imageIndexRight || imageIndexLeft === imageIndexCenter || imageIndexCenter === imageIndexRight || holderProduct.includes(imageIndexLeft) || holderProduct.includes(imageIndexCenter) || holderProduct.includes(imageIndexRight)) {
+
+   
+
+    while (imageIndexLeft === imageIndexRight || imageIndexLeft === imageIndexCenter ||imageIndexCenter===imageIndexRight|| holderProduct.includes(imageIndexLeft) || holderProduct.includes(imageIndexCenter) || holderProduct.includes(imageIndexRight)) {
+
         imageIndexRight = randomProduct();
         imageIndexCenter = randomProduct();
         imageIndexLeft = randomProduct();
     }
 
-    holderProduct = [imageIndexLeft, imageIndexRight, imageIndexCenter];
+
+   
+
+    holderProduct = [imageIndexLeft,imageIndexRight,imageIndexCenter];
+
 
     leftImagElment.src = Busproudect.allProuduct[imageIndexLeft].source;
     Busproudect.allProuduct[imageIndexLeft].shown++;
