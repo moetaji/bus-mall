@@ -12,6 +12,12 @@ i don't have any
 
 - How long did it take you to complete this assignment? And, before you started, how long did you think it would take you to complete this assignment?
 
-it took me about 4 hour to finsh 
+ lab13
+i didn't finsh all the lab requirement 
 
-updat for lab12
+
+
+updat for lab13
+
+
+
