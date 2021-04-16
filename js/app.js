@@ -82,10 +82,8 @@ function randomProduct() {
 }
 
 
-
-
-
 let holderProduct = [];
+getData();
 //render funcion
 function render() {
 
@@ -93,21 +91,13 @@ function render() {
     imageIndexCenter = randomProduct();
     imageIndexLeft = randomProduct();
 
-
-   
-
-    while (imageIndexLeft === imageIndexRight || imageIndexLeft === imageIndexCenter ||imageIndexCenter===imageIndexRight|| holderProduct.includes(imageIndexLeft) || holderProduct.includes(imageIndexCenter) || holderProduct.includes(imageIndexRight)) {
-
+    while (imageIndexLeft === imageIndexRight || imageIndexLeft === imageIndexCenter || imageIndexCenter === imageIndexRight || holderProduct.includes(imageIndexLeft) || holderProduct.includes(imageIndexCenter) || holderProduct.includes(imageIndexRight)) {
         imageIndexRight = randomProduct();
         imageIndexCenter = randomProduct();
         imageIndexLeft = randomProduct();
     }
 
-
-   
-
-    holderProduct = [imageIndexLeft,imageIndexRight,imageIndexCenter];
-
+    holderProduct = [imageIndexLeft, imageIndexRight, imageIndexCenter];
 
     leftImagElment.src = Busproudect.allProuduct[imageIndexLeft].source;
     Busproudect.allProuduct[imageIndexLeft].shown++;
@@ -174,6 +164,7 @@ function showing() {
         getRuslt.textContent = `${Busproudect.allProuduct[i].name}has ${Busproudect.allProuduct[i].votes}voted and seen ${Busproudect.allProuduct[i].shown}time`;
     }
     if (getRuslt) {
+        storedata();
         chart();
         button.removeEventListener('click', showing);
     }
@@ -229,13 +220,23 @@ function storedata() {
 }
 
 function getData() {
+
     let data = localStorage.getItem('shown');
     // console.log(data);
     let shownData = JSON.parse(data);
+    if (shownData) {
+
+        for (let i = 0; i < shownData.length; i++) {
+
+            Busproudect.allProuduct[i].shown = shownData[i].shown;
+            Busproudect.allProuduct[i].votes = shownData[i].votes;
+
+
+        }
+    }
+
+
     console.log(shownData);
 }
 render();
 
-storedata();
-
-getData();
